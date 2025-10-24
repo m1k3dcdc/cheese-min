@@ -135,20 +135,14 @@ pipeline {
                   def deployPod = openshift.selector("dc", APPName)
                   deployPod.logs("-f")
                   echo "*** Pod related"
-                  deployPod.related("pods").untilEach {
-                    return it.object().status.phase == 'Running'
-                  }
-  
-/*                  
-                  echo "*** Timeout related"
                   timeout(5) {                    
-                    openshift.selector("dc", APPName).related('pods').untilEach(1) {
-                      return (it.object().status.phase == "Running")
-                    }
+                      deployPod.related('pods').untilEach(1) {
+                        return (it.object().status.phase == "Running")
+                      }
                   }  
-*/
-            }
-          }
+
+            }  //withProject
+          }  //withCluster
         }  //script
       }  //steps
     }  //stage 
