@@ -123,7 +123,7 @@ pipeline {
                   echo "### BuildConfig: " + APPName + " exists, start new build ..."
                   if (!buildConfigExists) {
                         echo "### newBuild " + APPName
-                        openshift.newBuild("--name=${APPName}", "--image=docker.io/m1k3pjem/hello-java-spring-boot", "--binary")
+                        openshift.newBuild("--name=${APPName}", "--image=docker.io/m1k3pjem/cheese-java-pipeline", "--binary")
 /*
                         if (!openshift.selector("route", APPName).exists()) {
                             echo "### Route " + APPName + " does not exist, exposing service ..." 
