@@ -99,7 +99,7 @@ objects:
         spec:
           containers:
             - name: ${APPLICATION_NAME}
-              image: ${APPLICATION_NAME}
+              image: ${REGISTRY_IMAGE_NAME}:latest
            # - name: ${IMAGE_NAME}
            #   image: ${REGISTRY_IMAGE_NAME}
               ports:
