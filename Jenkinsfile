@@ -1,6 +1,6 @@
-def templatePath = './deployscripts/cheese-java-pipeline-template.yaml'
-def templateName = 'cheese-java-pipeline-template'
-def APPName = 'cheese-java-pipeline'
+def templatePath = './cheese-min-template.yaml'
+def templateName = 'cheese-min-template'
+def APPName = 'cheese-min'
 pipeline {
   agent any
 
