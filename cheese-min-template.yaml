@@ -98,8 +98,10 @@ objects:
           deploymentconfig: ${APPLICATION_NAME}      
         spec:
           containers:
-            - name: ${IMAGE_NAME}
-              image: ${REGISTRY_IMAGE_NAME}
+            - name: ${APPLICATION_NAME}
+              image: ${APPLICATION_NAME}
+           # - name: ${IMAGE_NAME}
+           #   image: ${REGISTRY_IMAGE_NAME}
               ports:
                 - containerPort: 8080
                   protocol: TCP
