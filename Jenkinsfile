@@ -98,7 +98,7 @@ pipeline {
                   }    
                   //def startBuildLog = openshift.selector("bc", APPName).startBuild("--from-dir=.")
                   //startBuildLog.logs('-f')
-                  sh "oc start-build ${APPName} --follow"                                 
+                  sh "oc start-build ${APPName} --from-dir=."                                 
                   /*
                   def builds = openshift.selector("bc", APPName).related('builds')
                   echo "*** BUILS related"
