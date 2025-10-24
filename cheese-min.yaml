@@ -1,23 +1,23 @@
 apiVersion: template.openshift.io/v1
 kind: Template
 metadata:
-  name: cheese-java-pipeline-template
+  name: cheese-min-template
   annotations:
     iconClass: icon-jenkins
     template.alpha.openshift.io/wait-for-ready: "true"
 labels:
-  template: cheese-java-pipeline-template
-  app: cheese-java-pipeline
+  template: cheese-min-template
+  app: cheese-min
 parameters:
   - name: APPLICATION_NAME
     description: "The name of the application"
-    value: "cheese-java-pipeline"
+    value: "cheese-min"
   - name: IMAGE_NAME
     description: "The name of the container image"
-    value: "hello-java-spring-boot"
+    value: "cheese-java-pipeline"
   - name: REGISTRY_IMAGE_NAME
     description: "The name of the registry container image"
-    value: "docker.io/m1k3pjem/hello-java-spring-boot"
+    value: "docker.io/m1k3pjem/cheese-java-pipeline"
 objects:
   - apiVersion: image.openshift.io/v1
     kind: ImageStream
