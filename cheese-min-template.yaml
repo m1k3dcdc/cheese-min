@@ -110,7 +110,7 @@ objects:
                 - name: FAVOURITE_CHEESE
                   valueFrom:
                     configMapKeyRef:
-                      name: ${IMAGE_NAME}-configmap
+                      name: hello-java-spring-boot-configmap
                       key: thefavourite.cheese
           triggers:
             - type: GitHub
