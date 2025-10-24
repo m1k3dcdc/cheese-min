@@ -96,17 +96,17 @@ pipeline {
                   if (!openshift.selector("bc", APPName).exists()) {
                         openshift.newBuild("--name=${APPName}", "--image=docker.io/m1k3pjem/cheese-java-pipeline", "--binary")
                   }    
-                  //def startBuildLog = openshift.selector("bc", APPName).startBuild("--from-dir=.")
-                  //startBuildLog.logs('-f')
-                  sh "oc start-build ${APPName} --from-dir=."                                 
-                  /*
+                  def startBuildLog = openshift.selector("bc", APPName).startBuild("--from-dir=.", "--follow")
+                  startBuildLog.logs('-f')
+                  //sh "oc start-build ${APPName} --from-dir=."                                 
+                  
                   def builds = openshift.selector("bc", APPName).related('builds')
                   echo "*** BUILS related"
                   timeout(5) { 
                     builds.untilEach(1) {
                       return (it.object().status.phase == "Complete")
                     }
-                  }*/
+                  }
                 }
             }
         }
@@ -137,7 +137,6 @@ pipeline {
                   if (openshift.selector("bc", APPName).exists()) {
                     echo "### BC " + APPName + " exist, create Trigger ..." 
                     sh "oc set triggers bc/${APPName} --from-github=false"
-                    //oc set triggers bc/APPName --from-github --webhook-secret=mysecret123
                   }
 /*
                   def deployPod = openshift.selector("dc", APPName)
@@ -153,13 +152,13 @@ pipeline {
                       return (it.object().status.phase == "Running")
                     }
                   }  */
-                  /*
+                  
                   timeout(5) { 
                     echo "*** Timeout"
                     openshift.selector("deploy", APPName).related('pods').untilEach(1) {
                       return (it.object().status.phase == "Running")
                     }
-                  }  */
+                  }  
                   
                 }
             }
