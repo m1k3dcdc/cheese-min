@@ -12,4 +12,4 @@
 #EXPOSE 8080
 #ENTRYPOINT ["sh", "-c"]
 #CMD ["java -jar app.jar"]
-FROM m1k3pjem/hello-java-spring-boot:latest
+FROM m1k3pjem/cheese-java-pipeline:latest
