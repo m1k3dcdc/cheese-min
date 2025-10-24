@@ -64,7 +64,7 @@ objects:
         output:
           to:
             kind: DockerImage
-            name: docker.io/m1k3pjem/${APPLICATION_NAME}          
+            name: ${REGISTRY_IMAGE_NAME}
           pushSecret:
             name: hello-java-secret    
         postCommit: {}
