@@ -131,7 +131,7 @@ pipeline {
                     echo "### BC " + APPName + " exist, create Trigger ..." 
                     sh "oc set triggers bc/${APPName} --from-github=false"
                   }
-
+/*
                   def deployPod = openshift.selector("dc", APPName)
                   deployPod.logs("-f")
                   echo "*** Pod related"
@@ -140,7 +140,7 @@ pipeline {
                         return (it.object().status.phase == "Running")
                       }
                   }  
-
+*/
             }  //withProject
           }  //withCluster
         }  //script
