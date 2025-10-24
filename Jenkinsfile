@@ -96,9 +96,9 @@ pipeline {
                   if (!openshift.selector("bc", APPName).exists()) {
                         openshift.newBuild("--name=${APPName}", "--image=docker.io/m1k3pjem/cheese-java-pipeline", "--binary")
                   }    
-                  def startBuildLog = openshift.selector("bc", APPName).startBuild("--from-dir=.", "--follow")
-                  startBuildLog.logs('-f')
-                  //sh "oc start-build ${APPName} --from-dir=."                                 
+                  //def startBuildLog = openshift.selector("bc", APPName).startBuild("--from-dir=.", "--follow")
+                  //startBuildLog.logs('-f')
+                  sh "oc start-build ${APPName} --from-dir=. --follow"                                 
                   
                   def builds = openshift.selector("bc", APPName).related('builds')
                   echo "*** BUILS related"
@@ -123,42 +123,30 @@ pipeline {
                     
                   if(!openshift.selector("dc", APPName).exists()){
                     //openshift.newApp('hello-java-spring-boot', "--as-deployment-config").narrow('svc')
+                    echo "*** Deploy rollout"
                     sh "oc rollout latest dc/${APPName}"
-                  }
-
-                  if (!openshift.selector("route", APPName).exists()) {
-                    echo "### Route " + APPName + " does not exist, exposing service ..." 
-                    def service = openshift.selector("service", APPName)
-                    service.expose()
                   }
 
                   if (openshift.selector("bc", APPName).exists()) {
                     echo "### BC " + APPName + " exist, create Trigger ..." 
                     sh "oc set triggers bc/${APPName} --from-github=false"
                   }
-/*
+
                   def deployPod = openshift.selector("dc", APPName)
                   deployPod.logs("-f")
                   echo "*** Pod related"
                   deployPod.related("pods").untilEach {
                     return it.object().status.phase == 'Running'
                   }
-  */                
-/*                 
-                  timeout(5) { 
-                    deployPod.untilEach(1) {
-                      return (it.object().status.phase == "Running")
-                    }
-                  }  */
-                  
-                  timeout(5) { 
-                    echo "*** Timeout related"
+  
+/*                  
+                  echo "*** Timeout related"
+                  timeout(5) {                    
                     openshift.selector("dc", APPName).related('pods').untilEach(1) {
                       return (it.object().status.phase == "Running")
                     }
                   }  
-                  
-                }
+*/
             }
         }
       }
