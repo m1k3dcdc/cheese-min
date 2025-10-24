@@ -121,7 +121,7 @@ pipeline {
                   //openshift.selector("dc", APPName).rollout()
                   echo "*** Deploy Config"
                     
-                  if(!openshift.selector("dc", APPName).exists()){
+                  if (!openshift.selector("dc", APPName).exists()) {
                     //openshift.newApp('hello-java-spring-boot', "--as-deployment-config").narrow('svc')
                     echo "*** Deploy rollout"
                     sh "oc rollout latest dc/${APPName}"
@@ -148,9 +148,10 @@ pipeline {
                   }  
 */
             }
-        }
-      }
-    } 
+          }
+        }  //script
+      }  //steps
+    }  //stage 
   /*  stage('tag') {
       steps {
         script {
