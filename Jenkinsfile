@@ -120,10 +120,8 @@ pipeline {
                 openshift.withProject() {
                   //openshift.selector("dc", APPName).rollout()
                   echo "*** Deploy Config"
-                  
-                  def deployment = openshift.selector("dc", APPName)
-    
-                  if(!deployment.exists()){
+                    
+                  if(!openshift.selector("dc", APPName).exists()){
                     //openshift.newApp('hello-java-spring-boot', "--as-deployment-config").narrow('svc')
                     sh "oc rollout latest dc/${APPName}"
                   }
@@ -154,8 +152,8 @@ pipeline {
                   }  */
                   
                   timeout(5) { 
-                    echo "*** Timeout"
-                    openshift.selector("deploy", APPName).related('pods').untilEach(1) {
+                    echo "*** Timeout related"
+                    openshift.selector("dc", APPName).related('pods').untilEach(1) {
                       return (it.object().status.phase == "Running")
                     }
                   }  
